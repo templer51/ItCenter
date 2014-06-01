@@ -1,8 +1,9 @@
 package company;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public interface ICompany {
-	void find(Comparator<Employee> c);
-	void sort(Comparator<Employee> c);
+	Employee find(Comparator<Employee> comparator);
+	ArrayList<Employee> sort(Comparator<Employee> comparator);
 }
