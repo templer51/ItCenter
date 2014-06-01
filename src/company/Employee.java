@@ -1,3 +1,4 @@
+package company;
 import java.io.Serializable;
 
 public class Employee implements IEmployee, Serializable{
