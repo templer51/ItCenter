@@ -14,8 +14,6 @@ public class MyNewJList extends JFrame {
 		// JFrame frame = new JFrame("Employees List");
 		// frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		ArrayList<Employee> list1 = MySaver.load();
-		Employee[] epl = new Employee[list1.size()];
-		
 		DefaultListModel<Employee> listModel = new DefaultListModel<>();
 		
 		for(Employee e : list1){

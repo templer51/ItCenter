@@ -1,7 +1,7 @@
 package company;
 import java.util.ArrayList;
 
-public class Company{
+public class Company implements ICompany{
 	
 	ArrayList<Employee> employees = new ArrayList<>();
 	
