@@ -2,6 +2,10 @@ package company;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import company.datamodels.Employee;
+import company.intefaces.ICompany;
+import company.sources.MySaver;
+
 public class Company implements ICompany{
 	
 	ArrayList<Employee> employees = new ArrayList<Employee>();
