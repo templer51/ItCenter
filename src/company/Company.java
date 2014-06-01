@@ -25,15 +25,14 @@ public class Company implements ICompany{
 
 	@Override
 	public Employee find(Comparator<Employee> comparator) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<Employee> sort(Comparator<Employee> comparator) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 }
