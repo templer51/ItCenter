@@ -31,11 +31,6 @@ public class Company implements ICompany{
 
 	@Override
 	public ArrayList<Employee> sort(Comparator<Employee> comparator) {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		return null;
-=======
-		
 		for(int i = 0; i < employees.size(); i++){
 			for(int j = i; j > 0 && comparator.compare(employees.get(j), employees.get(j - 1)) < 0; j--){
 						Employee t = employees.get(j);
@@ -44,7 +39,6 @@ public class Company implements ICompany{
 			}
 		}
 		return employees;
->>>>>>> 7396f2a8f6f9ecef158676d855b811d097c055bc
 	}
 	
 }
