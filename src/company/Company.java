@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Company{
 	
-	ArrayList<Employee> employees = new ArrayList<>();
+	ArrayList<Employee> employees = new ArrayList<Employee>();
 	
 	public void addEmployee(Employee employee){
 		employees.add(employee);
