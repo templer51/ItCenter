@@ -6,6 +6,10 @@ public class Company implements ICompany{
 	
 	ArrayList<Employee> employees = new ArrayList<Employee>();
 	
+	public Company(){
+		employees = MySaver.load();
+	}
+	
 	public void addEmployee(Employee employee){
 		employees.add(employee);
 		MySaver.save(employees);
@@ -33,9 +37,9 @@ public class Company implements ICompany{
 	public ArrayList<Employee> sort(Comparator<Employee> comparator) {
 		for(int i = 0; i < employees.size(); i++){
 			for(int j = i; j > 0 && comparator.compare(employees.get(j), employees.get(j - 1)) < 0; j--){
-						Employee t = employees.get(j);
-						employees.set(j, employees.get(j - 1));
-						employees.set(j - 1, t);
+				Employee t = employees.get(j);
+				employees.set(j, employees.get(j - 1));
+				employees.set(j - 1, t);
 			}
 		}
 		return employees;

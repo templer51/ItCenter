@@ -26,26 +26,43 @@ public class FrameEdit extends JFrame {
 	private JTextField tAddress = new JTextField();
 	private JTextField tPhone = new JTextField();
 	
+	private JLabel message = new JLabel("");
+	
 	private JButton btn = new JButton("Save");
 	private ICompany campany = null;
+	private Employee employee;
+	
+	public FrameEdit(ICompany company, Employee employee) throws HeadlessException {
+		super();
+		this.campany = company;
+		this.employee = employee;
+		initFrame();
+		setVisible(true);
+	}
 
 	public FrameEdit(ICompany company) throws HeadlessException {
 		super();
-		setSize(500, 150);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setResizable(false);
-		initFrame();
-		setTitle("Edit employee data");
 		this.campany = company;
+		initFrame();
 		setVisible(true);
 	}
 	
 	public void initFrame(){
 
+		setSize(500, 150);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setTitle("Edit employee data");
+		
+		if (employee != null){
+			tName.setText(employee.getLastName());
+			tAddress.setText(employee.getAdress());
+			tAge.setText(employee.getAge() + "");
+			tPhone.setText(employee.getPhoneNumber());
+		}
+		
 		JPanel panel = new JPanel();
-		
 		GroupLayout gLayout = new GroupLayout(panel);
-		
 		panel.setLayout(gLayout);
 		
 		GroupLayout.ParallelGroup hGroup = gLayout.createParallelGroup();
@@ -64,6 +81,8 @@ public class FrameEdit extends JFrame {
 				.addComponent(tPhone));
 		hGroup.addGroup(gLayout.createSequentialGroup()
 				.addComponent(btn));
+		hGroup.addGroup(gLayout.createSequentialGroup()
+				.addComponent(message));
 		gLayout.setHorizontalGroup(hGroup);
 	
 		GroupLayout.SequentialGroup vGroup = gLayout.createSequentialGroup();
@@ -82,6 +101,8 @@ public class FrameEdit extends JFrame {
 				.addComponent(tPhone));
 		vGroup.addGroup(gLayout.createParallelGroup()
 				.addComponent(btn));
+		vGroup.addGroup(gLayout.createParallelGroup()
+				.addComponent(message));
 		gLayout.setVerticalGroup(vGroup);
 		gLayout.linkSize(SwingConstants.VERTICAL, tName, tAge, tAddress, tPhone);
 		gLayout.linkSize(SwingConstants.HORIZONTAL, lName, age, address, phone);
@@ -90,16 +111,55 @@ public class FrameEdit extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				clearError();
+				
 				String name = tName.getText();
-				int age = Integer.parseInt(tAge.getText());
+				if (name.equals("")){
+					setMessage("First name is required");
+					return;
+				}
+				
+				String ageString = tAge.getText();
+				if (age.equals("")){
+					setMessage("Inccorect value for age");
+					return;
+				}
+				
+				int age = 0;
+				try{
+					age = Integer.parseInt(ageString);
+				} catch (NumberFormatException ex){
+					setMessage(ex.getMessage());
+					return;
+				}
+				if (age <= 18 || age >= 65){
+					setMessage("Incorrect age");
+					return;
+				}
+				
 				String address = tAddress.getText();
+				
 				String phoneNumber = tPhone.getText();
-				Employee employee = new Employee(name, phoneNumber, age, address);
-				((Company)campany).addEmployee(employee);
+				if (employee == null){
+					Employee employee = new Employee(name, phoneNumber, age, address);
+					campany.addEmployee(employee);
+				} else {
+					employee.updateEmployeeData(name, phoneNumber, age, address);
+				}
+				setMessage("Employee saved successfuly");
 			}
 		}); 
 		
 		getContentPane().add(panel, BorderLayout.CENTER);
+	}
+	
+	private void setMessage(String msg){
+		message.setText(msg);
+	}
+	
+	private void clearError(){
+		message.setText("");
 	}
 
 }

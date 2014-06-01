@@ -10,16 +10,20 @@ public class Employee implements Serializable{
 	}
 
 	Employee(String lastName, String phoneNumber, int age, String adress) {
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.age = age;
-		this.adress = adress;
+		updateEmployeeData(lastName, phoneNumber, age, adress);
 	}
 
 	private String lastName;
 	private String phoneNumber;
 	private int age;
 	private String adress;
+	
+	public void updateEmployeeData(String lastName, String phoneNumber, int age, String adress){
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.age = age;
+		this.adress = adress;
+	}
 
 	public String getLastName() {
 		return lastName;

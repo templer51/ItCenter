@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class FileResource implements IResource {
+public class SourceFile implements ISource {
 
 	@Override
 	public void save(String path, ArrayList<Employee> empl) {
