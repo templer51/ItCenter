@@ -1,7 +1,7 @@
 package company;
 import java.io.Serializable;
 
-public class Employee implements IEmployee, Serializable{
+public class Employee implements Serializable{
 
 
 	private static final long serialVersionUID = 1928124219139174495L;
