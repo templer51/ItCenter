@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class Company implements ICompany{
 	
-	ArrayList<Employee> employees = new ArrayList<>();
+	ArrayList<Employee> employees = new ArrayList<Employee>();
 	
 	public void addEmployee(Employee employee){
 		employees.add(employee);
