@@ -26,6 +26,7 @@ public class ExportImport implements IEmployee {
 		String word = sc.nextLine();
 		System.out.println(word);
 		System.out.println("/n");
+		sc.close();
 		return  word;
 	}
 	
