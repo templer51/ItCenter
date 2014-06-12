@@ -1,7 +1,6 @@
 package company.frames;
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
-import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -14,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import company.datamodels.Employee;
-import company.sources.MySaver;
+import company.intefaces.ICompany;
 
 public class FrameList extends JFrame {
 	
@@ -32,9 +31,12 @@ public class FrameList extends JFrame {
 
 	private String[] sortBy = {"Name", "Age", "Address", "Phone Number"};
 	private JComboBox<String> boxSortBy = new JComboBox<>(sortBy);
+	
+	private ICompany company = null;
 
-	public FrameList() throws HeadlessException {
+	public FrameList(ICompany company) throws HeadlessException {
 		super();
+		this.company = company;
 		myJList();
 		setSize(600, 600);
 		setTitle("Staff");
@@ -72,11 +74,12 @@ public class FrameList extends JFrame {
 				.addComponent(btnAsc));
 		gLayout.setVerticalGroup(vGroup);
 		
-		ArrayList<Employee> list1 = MySaver.load();
 		DefaultListModel<Employee> listModel = new DefaultListModel<>();
 		
-		for(Employee e : list1){
-			listModel.addElement(e);
+		if (company.getEmployeeList() != null){
+			for(Employee e : company.getEmployeeList()){
+				listModel.addElement(e);
+			}
 		}
 		
 		list.setModel(listModel);

@@ -1,4 +1,5 @@
 package company;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -12,6 +13,9 @@ public class Company implements ICompany{
 	
 	public Company(){
 		employees = MySaver.load();
+		if (employees == null){
+			employees = new ArrayList<Employee>();
+		}
 	}
 	
 	public void addEmployee(Employee employee){
@@ -20,10 +24,6 @@ public class Company implements ICompany{
 	}
 	
 	public ArrayList<Employee> getEmployeeList(){
-		return MySaver.load();
-	}
-	
-	public ArrayList<Employee> getEmployees() {
 		return employees;
 	}
 

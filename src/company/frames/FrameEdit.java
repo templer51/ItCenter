@@ -1,4 +1,5 @@
 package company.frames;
+
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -35,17 +36,17 @@ public class FrameEdit extends JFrame {
 	private ICompany campany = null;
 	private Employee employee;
 	
-	public FrameEdit(ICompany company, Employee employee) throws HeadlessException {
+	public FrameEdit(ICompany company) throws HeadlessException {
 		super();
 		this.campany = company;
-		this.employee = employee;
 		initFrame();
 		setVisible(true);
 	}
 	
-	public FrameEdit(ICompany company) throws HeadlessException {
+	public FrameEdit(ICompany company, Employee employee) throws HeadlessException {
 		super();
 		this.campany = company;
+		this.employee = employee;
 		initFrame();
 		setVisible(true);
 	}
@@ -144,11 +145,12 @@ public class FrameEdit extends JFrame {
 				String address = tAddress.getText();
 				
 				String phoneNumber = tPhone.getText();
-				if (employee == null){
-					Employee employee = new Employee(name, phoneNumber, age, address);
-					campany.addEmployee(employee);
+				if (FrameEdit.this.employee == null){
+					Employee employee1 = new Employee(name, phoneNumber, age, address);
+					System.out.println("here");
+					campany.addEmployee(employee1);
 				} else {
-					employee.updateEmployeeData(name, phoneNumber, age, address);
+					FrameEdit.this.employee.updateEmployeeData(name, phoneNumber, age, address);
 				}
 				setMessage("Employee saved successfuly");
 			}

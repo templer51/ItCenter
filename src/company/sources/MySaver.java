@@ -14,8 +14,8 @@ public class MySaver {
 
 	private static String fileName = "/home/kroosnik/test";
 
-	/** Serialize file */
 	public static void save(ArrayList<Employee> empl) {
+		
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 
@@ -46,7 +46,6 @@ public class MySaver {
 		}
 	}
 
-	/** Deserialize file */
 	@SuppressWarnings("unchecked")
 	public static ArrayList<Employee> load() {
 		FileInputStream fis = null;

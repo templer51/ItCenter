@@ -73,7 +73,7 @@ public class FrameMain extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new FrameList();
+			new FrameList(company);
 		}
 
 	}

@@ -6,7 +6,6 @@ public class Employee implements Serializable{
 	private static final long serialVersionUID = 1928124219139174495L;
 
 	public Employee() {
-		
 	}
 
 	public Employee(String lastName, String phoneNumber, int age, String adress) {
