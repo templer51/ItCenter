@@ -19,7 +19,6 @@ public class Company implements ICompany{
 	private IFinder<List<Employee>> finder;
 	
 	public Company(){
-		
 		// создание ресурса для хранения данных
 		saver = new CompanyFile(Constants.FILE_PATH);
 		finder = new Finder<List<Employee>, Employee>();

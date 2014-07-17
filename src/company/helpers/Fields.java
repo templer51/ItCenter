@@ -2,7 +2,7 @@ package company.helpers;
 
 public enum Fields {
 	
-	NAME("name"), AGE("age"), ADDRESS("addres"), PHONE("phone");
+	NAME("Name"), AGE("Age"), ADDRESS("Addres"), PHONE("Phone Number");
 	
 	private String value;
 	
@@ -12,6 +12,11 @@ public enum Fields {
 	
 	public String getValue(){
 		return this.value;
+	}
+	
+	@Override
+	public String toString() {
+		return value;
 	}
 
 }

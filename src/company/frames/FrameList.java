@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -16,7 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import company.entity.Employee;
+import company.helpers.CompanyComparator;
+import company.helpers.Fields;
+import company.helpers.SortDirection;
 import company.intefaces.ICompany;
+import company.intefaces.IComparator;
+import company.intefaces.IEmployee;
 
 public class FrameList extends JFrame {
 	
@@ -32,11 +38,13 @@ public class FrameList extends JFrame {
 	
 	private JLabel labelSortBy = new JLabel("Sort by: ");
 
-	private String[] sortBy = {"Name", "Age", "Address", "Phone Number"};
-	private JComboBox<String> boxSortBy = new JComboBox<String>(sortBy);
+	private Fields[] sortBy = Fields.values();
+	private JComboBox<Fields> boxSortBy = new JComboBox<Fields>(sortBy);
 	
 	private ICompany company = null;
 	private DefaultListModel<Employee> listModel;
+	
+	private SortDirection direction = SortDirection.ASC;
 
 	public FrameList(ICompany company) throws HeadlessException {
 		super();
@@ -90,18 +98,44 @@ public class FrameList extends JFrame {
 		list.setLayoutOrientation(JList.VERTICAL_WRAP);
 		
 		btnFind.addActionListener(new FindClickAction());
+
+		btnAsc.setEnabled(false);
+		btnAsc.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				direction = SortDirection.ASC;
+				btnAsc.setEnabled(false);
+				btnDesc.setEnabled(true);
+				sort();
+			}
+		});
+		
+		btnDesc.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				direction = SortDirection.DESC;
+				btnAsc.setEnabled(true);
+				btnDesc.setEnabled(false);
+				sort();
+			}
+		});
+		boxSortBy.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				sort();
+			}
+		});
 		
 		getContentPane().add(panel, BorderLayout.NORTH);
 		getContentPane().add(list, BorderLayout.CENTER);
+		
+		sort();
 	}
 	
 	private class FindClickAction implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
 			String value = inputSearch.getText();
-			if (value.equals("")){
-				return;
-			}
 			
 			listModel.clear();
 			List<Employee> findList = company.find(value);
@@ -112,8 +146,40 @@ public class FrameList extends JFrame {
 			}
 			
 			list.setModel(listModel);
+			sort();
 		}
 		
+	}
+	
+	private void sort(){
+		int index = boxSortBy.getSelectedIndex();
+		if (index <= -1 || index >= sortBy.length){
+			return;
+		}
+		
+		Fields field = sortBy[index];
+		
+		List<Employee> employees = Collections.list(listModel.elements());
+		
+		IComparator<IEmployee> comparator = new CompanyComparator(direction);
+		if (field == Fields.NAME){
+			Collections.sort(employees, comparator.getNameComparator());
+		} else if (field == Fields.AGE){
+			Collections.sort(employees, comparator.getAgeComparator());
+		} else if (field == Fields.ADDRESS){
+			Collections.sort(employees, comparator.getAddresComparator());
+		} else if (field == Fields.PHONE){
+			Collections.sort(employees, comparator.getPhoneComparator());
+		}
+		
+		listModel.clear();
+		if (!employees.isEmpty()){
+			for(Employee e : employees){
+				listModel.addElement(e);
+			}
+		}
+		
+		list.setModel(listModel);
 	}
 	
 }
