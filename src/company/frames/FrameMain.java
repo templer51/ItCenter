@@ -62,7 +62,6 @@ public class FrameMain extends JFrame {
 
 	private class AddButtonListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			new FrameEdit(company);
 		}
@@ -71,7 +70,6 @@ public class FrameMain extends JFrame {
 	
 	private class ListButtonListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			new FrameList(company);
 		}

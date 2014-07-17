@@ -8,19 +8,24 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import company.datamodels.Employee;
+import company.entity.Employee;
+import company.intefaces.ISource;
 
-public class MySaver {
+public class MySaver implements ISource{
 
-	private static String fileName = "/home/kroosnik/test";
+	private String filePath;
+	
+	public MySaver(String filePath){
+		this.filePath = filePath;
+	}
 
-	public static void save(ArrayList<Employee> empl) {
+	public void save(ArrayList<Employee> empl) {
 		
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 
 		try {
-			fos = new FileOutputStream(fileName);
+			fos = new FileOutputStream(filePath);
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(empl);
 		} catch (FileNotFoundException e) {
@@ -47,12 +52,12 @@ public class MySaver {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static ArrayList<Employee> load() {
+	public ArrayList<Employee> load() {
 		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 		ArrayList<Employee> emploee = null;
 		try {
-			fis = new FileInputStream(fileName);
+			fis = new FileInputStream(filePath);
 			ois = new ObjectInputStream(fis);
 			Object o = ois.readObject();
 			emploee = (ArrayList<Employee>) o;

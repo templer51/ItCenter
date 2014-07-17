@@ -2,10 +2,10 @@ package company.intefaces;
 
 import java.util.ArrayList;
 
-import company.datamodels.Employee;
+import company.entity.Employee;
 
 public interface ISource {
 	
-	void save(String path, ArrayList<Employee> empl);
-	ArrayList<Employee> load(String path);
+	void save(ArrayList<Employee> empl);
+	ArrayList<Employee> load();
 }

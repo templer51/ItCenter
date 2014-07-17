@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import company.datamodels.Employee;
+import company.entity.Employee;
 import company.intefaces.ICompany;
 
 public class FrameEdit extends JFrame {
@@ -113,7 +113,6 @@ public class FrameEdit extends JFrame {
 		
 		btn.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				clearError();

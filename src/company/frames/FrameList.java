@@ -1,6 +1,9 @@
 package company.frames;
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -12,14 +15,14 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import company.datamodels.Employee;
+import company.entity.Employee;
 import company.intefaces.ICompany;
 
 public class FrameList extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 
-	private JList<Employee> list = new JList<>();
+	private JList<Employee> list = new JList<Employee>();
 	
 	private JButton btnFind = new JButton("Find");
 	private JTextField inputSearch = new JTextField();
@@ -30,9 +33,10 @@ public class FrameList extends JFrame {
 	private JLabel labelSortBy = new JLabel("Sort by: ");
 
 	private String[] sortBy = {"Name", "Age", "Address", "Phone Number"};
-	private JComboBox<String> boxSortBy = new JComboBox<>(sortBy);
+	private JComboBox<String> boxSortBy = new JComboBox<String>(sortBy);
 	
 	private ICompany company = null;
+	private DefaultListModel<Employee> listModel;
 
 	public FrameList(ICompany company) throws HeadlessException {
 		super();
@@ -74,7 +78,7 @@ public class FrameList extends JFrame {
 				.addComponent(btnAsc));
 		gLayout.setVerticalGroup(vGroup);
 		
-		DefaultListModel<Employee> listModel = new DefaultListModel<>();
+		listModel = new DefaultListModel<Employee>();
 		
 		if (company.getEmployeeList() != null){
 			for(Employee e : company.getEmployeeList()){
@@ -85,7 +89,31 @@ public class FrameList extends JFrame {
 		list.setModel(listModel);
 		list.setLayoutOrientation(JList.VERTICAL_WRAP);
 		
+		btnFind.addActionListener(new FindClickAction());
+		
 		getContentPane().add(panel, BorderLayout.NORTH);
 		getContentPane().add(list, BorderLayout.CENTER);
 	}
+	
+	private class FindClickAction implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
+			String value = inputSearch.getText();
+			if (value.equals("")){
+				return;
+			}
+			
+			listModel.clear();
+			List<Employee> findList = company.find(value);
+			if (!findList.isEmpty()){
+				for(Employee e : findList){
+					listModel.addElement(e);
+				}
+			}
+			
+			list.setModel(listModel);
+		}
+		
+	}
+	
 }

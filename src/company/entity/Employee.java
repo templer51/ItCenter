@@ -1,7 +1,10 @@
-package company.datamodels;
+package company.entity;
+
 import java.io.Serializable;
 
-public class Employee implements Serializable{
+import company.intefaces.IEmployee;
+
+public class Employee implements Serializable, IEmployee{
 
 	private static final long serialVersionUID = 1928124219139174495L;
 

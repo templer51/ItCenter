@@ -2,17 +2,29 @@ package company;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
-import company.datamodels.Employee;
+import company.entity.Employee;
+import company.helpers.Constants;
+import company.helpers.Finder;
 import company.intefaces.ICompany;
-import company.sources.MySaver;
+import company.intefaces.IFinder;
+import company.intefaces.ISource;
+import company.sources.CompanyFile;
 
 public class Company implements ICompany{
 	
-	ArrayList<Employee> employees = new ArrayList<Employee>();
+	private ArrayList<Employee> employees = new ArrayList<Employee>();
+	private ISource saver;
+	private IFinder<List<Employee>> finder;
 	
 	public Company(){
-		employees = MySaver.load();
+		
+		// создание ресурса для хранения данных
+		saver = new CompanyFile(Constants.FILE_PATH);
+		finder = new Finder<List<Employee>, Employee>();
+		
+		employees = saver.load();
 		if (employees == null){
 			employees = new ArrayList<Employee>();
 		}
@@ -20,7 +32,7 @@ public class Company implements ICompany{
 	
 	public void addEmployee(Employee employee){
 		employees.add(employee);
-		MySaver.save(employees);
+		saver.save(employees);
 	}
 	
 	public ArrayList<Employee> getEmployeeList(){
@@ -31,13 +43,10 @@ public class Company implements ICompany{
 		this.employees = employees;
 	}
 
-	@Override
-	public Employee find(Comparator<Employee> comparator) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Employee> find(String value) {
+		return finder.find(employees, value);
 	}
 
-	@Override
 	public ArrayList<Employee> sort(Comparator<Employee> comparator) {
 		for(int i = 0; i < employees.size(); i++){
 			for(int j = i; j > 0 && comparator.compare(employees.get(j), employees.get(j - 1)) < 0; j--){
