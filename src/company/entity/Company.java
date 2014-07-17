@@ -1,9 +1,8 @@
-package company;
+package company.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import company.entity.Employee;
 import company.helpers.Constants;
 import company.helpers.Finder;
 import company.intefaces.ICompany;

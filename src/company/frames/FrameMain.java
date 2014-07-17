@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import company.Company;
+import company.entity.Company;
 import company.intefaces.ICompany;
 
 public class FrameMain extends JFrame {
