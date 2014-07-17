@@ -101,37 +101,40 @@ public class FrameList extends JFrame {
 		btnFind.addActionListener(new FindClickAction());
 
 		btnAsc.setEnabled(false);
-		btnAsc.addActionListener(new ActionListener() {
+		btnAsc.addActionListener(new SortAction() {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				direction = SortDirection.ASC;
 				btnAsc.setEnabled(false);
 				btnDesc.setEnabled(true);
-				sort();
+				super.actionPerformed(arg0);
 			}
 		});
-		
-		btnDesc.addActionListener(new ActionListener() {
+		btnDesc.addActionListener(new SortAction() {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				direction = SortDirection.DESC;
 				btnAsc.setEnabled(true);
 				btnDesc.setEnabled(false);
-				sort();
+				super.actionPerformed(arg0);
 			}
 		});
-		boxSortBy.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent arg0) {
-				sort();
-			}
-		});
+		
+		boxSortBy.addActionListener(new SortAction());
 		
 		getContentPane().add(panel, BorderLayout.NORTH);
 		getContentPane().add(list, BorderLayout.CENTER);
 		
 		sort();
 	}
+	
+	private class SortAction implements ActionListener{
+		
+		public void actionPerformed(ActionEvent arg0) {
+			sort();
+		}
+		
+	};
 	
 	private class FindClickAction implements ActionListener{
 
