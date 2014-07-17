@@ -9,7 +9,7 @@ import company.helpers.Finder;
 import company.intefaces.ICompany;
 import company.intefaces.IFinder;
 import company.intefaces.ISource;
-import company.sources.CompanyFile;
+import company.sources.CompanyFileSource;
 
 public class Company implements ICompany{
 	
@@ -19,7 +19,7 @@ public class Company implements ICompany{
 	
 	public Company(){
 		// создание ресурса для хранения данных
-		loader = new CompanyFile(Constants.FILE_PATH);
+		loader = new CompanyFileSource(Constants.FILE_PATH);
 		finder = new Finder<List<Employee>, Employee>();
 		
 		employees = loader.load();

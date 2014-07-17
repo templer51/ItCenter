@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import company.entity.Employee;
 import company.intefaces.ISource;
 
-public class CompanyFile implements ISource {
+public class CompanyFileSource implements ISource {
 	
 	private String path;
 	
-	public CompanyFile(String path){
+	public CompanyFileSource(String path){
 		this.path = path;
 	}
 
